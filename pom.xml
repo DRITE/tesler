@@ -284,6 +284,7 @@
     <module>tesler-all</module>
     <module>tesler-dictionary</module>
     <module>tesler-dictionary-links</module>
+    <module>tesler-ext</module>
   </modules>
 
 </project>

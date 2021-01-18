@@ -24,7 +24,7 @@ import static io.tesler.api.util.i18n.ErrorMessageSource.errorMessage;
 
 import io.tesler.core.crudma.bc.BusinessComponent;
 import io.tesler.core.crudma.impl.VersionAwareResponseService;
-import io.tesler.core.crudma.impl.sql.SqlCrudmaService;
+import io.tesler.core.crudma.sql.SqlCrudmaService;
 import io.tesler.core.dto.DTOUtils;
 import io.tesler.core.dto.rowmeta.ActionResultDTO;
 import io.tesler.core.dto.rowmeta.CreateResult;
