@@ -1,0 +1,35 @@
+name: Run doc tests
+
+on:
+  issue_comment:
+    types: [ created ]
+
+jobs:
+  send-message:
+    name: Send message
+    environment: doc
+    env:
+      token: ${{ secrets.EVENT_DISPATCH_TOKEN }}
+    if: github.event.issue.pull_request != '' && contains(github.event.comment.body, '/testDoc')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get PR
+        id: get_pr
+        run: |
+          echo "github.event.issue.pull_request.url=${{ github.event.issue.pull_request.url }}"
+          pr=`curl -u drite:$token ${{ github.event.issue.pull_request.url }} | tr '\n' ' '`
+          echo "##[set-output name=pr_data;]$pr"
+          echo "##[set-output name=repository;]${{ github.repository }}"
+      - name: Get branch
+        id: get_branch
+        run: |
+          echo "branch_name=${{ fromJson(steps.get_pr.outputs.pr_data).head.ref }}"
+          echo "repository name = ${{ steps.get_pr.outputs.repository }}"
+          echo "##[set-output name=branch_name;]${{ fromJson(steps.get_pr.outputs.pr_data).head.ref }}"
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.EVENT_DISPATCH_TOKEN }}
+          repository: DRITE/tesler-doc
+          event-type: test_doc
+          client-payload: '{"back": {"repository": "${{ steps.get_pr.outputs.repository }}", "branch": "${{ steps.get_branch.outputs.branch_name }}"}}'
