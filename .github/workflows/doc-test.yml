@@ -35,7 +35,7 @@ jobs:
           echo "##[set-output name=ui_repos;]$repos"
           echo "##[set-output name=ui_sha;]$sha"
       - name: Repository Dispatch with UI
-        if: ${{ steps.parse_ui_info.outputs.ui_repos }} != '' && ${{ steps.parse_ui_info.outputs.ui_sha }} != ''
+        if: (${{ steps.parse_ui_info.outputs.ui_repos }} != '') && (${{ steps.parse_ui_info.outputs.ui_sha }} != '')
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.EVENT_DISPATCH_TOKEN }}
