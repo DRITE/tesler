@@ -40,3 +40,5 @@ Backwards incompatible changes are denoted with `[BREAKING CHANGE]` mark.
 ## Contributing
 
 Please check ours [contributing guide](./CONTRIBUTING.md)
+
+delete this text
